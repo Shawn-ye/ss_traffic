@@ -10,6 +10,7 @@ else
     cd /home
     ./eth_log.sh &
     ./eth_stat.sh &
+    ./reconfig.sh
     # ping baidu.com > /dev/null 2>&1 &
     $MODE -k $PASSWORD
 fi

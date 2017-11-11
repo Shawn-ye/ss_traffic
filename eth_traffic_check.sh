@@ -2,10 +2,20 @@
 
 if [[ $TRAFFIC_LIMIT == 0 ]]
 then
-    echo "Traffic limit is set to 0 . Ignore traffic logs."
+    echo "Traffic limit is set to zero. Statistics will be jumped."
     exit
 else
-    echo "CURRENT TRAFFIC LIMIT IS : $TRAFFIC_LIMIT"
+    if [[ $TRAFFIC_LIMIT =~ .*"gb" ]]
+    then
+        VALUE=`echo $TRAFFIC_LIMIT | grep -o '[0-9]\+'`
+        ((TRAFFIC_LIMIT=$VALUE * 1024 * 1024 * 1024))
+    else
+        if [[ $TRAFFIC_LIMIT =~ .*"mb" ]]
+        then
+            VALUE=`echo $TRAFFIC_LIMIT | grep -o '[0-9]\+'`
+            ((TRAFFIC_LIMIT=$VALUE * 1024 * 1024))
+        fi
+    fi
 fi
 
 CONTAINERID=`cat /proc/self/cgroup | grep 'docker' | sed 's/^.*\///' | tail -n1`
@@ -29,7 +39,7 @@ do
     fi
 done
 
-
+echo "Current traffic is : $TRAFFIC_COUNT. LIMIT Is : $TRAFFIC_LIMIT"
 
 
 

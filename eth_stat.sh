@@ -1,7 +1,6 @@
 #!/bin/bash
 if [[ $TRAFFIC_LIMIT == 0 ]]
 then
-    echo "Traffic limit is set to zero. Statistics will be jumped."
     exit
 fi
 

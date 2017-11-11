@@ -12,4 +12,5 @@ COPY eth_traffic_check.sh /home/eth_traffic_check.sh
 COPY eth_stat.sh /home/eth_stat.sh
 COPY start.sh /home/start.sh
 COPY eth_log.sh /home/eth_log.sh
+COPY reconfig.sh /home/reconfig.sh
 ENV TRAFFIC_COUNT 0
