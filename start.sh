@@ -64,9 +64,10 @@ else
     ./eth_stat.sh &
     ./time_check.sh &
     cd tcp_proxy
-    node main.js &
+    
     # ping baidu.com > /dev/null 2>&1 &
-    $MODE -k $PASSWORD
+    $MODE -k $PASSWORD &
+    node main.js
 fi
 
 
