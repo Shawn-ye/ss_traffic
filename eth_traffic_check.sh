@@ -19,10 +19,10 @@ else
 fi
 
 CONTAINERID=`cat /proc/self/cgroup | grep 'docker' | sed 's/^.*\///' | tail -n1`
-mkdir -p logs
-touch logs/$CONTAINERID.log
+mkdir -p env
+touch env/$CONTAINERID.log
 
-cat logs/$CONTAINERID.log | while read line
+cat env/$CONTAINERID.log | while read line
 do
     if [[ ${line} =~ "TRAFFIC-COUNT-TX" ]]
     then
@@ -39,7 +39,9 @@ do
     fi
 done
 
-echo "Current traffic is : $TRAFFIC_COUNT. LIMIT Is : $TRAFFIC_LIMIT"
 
+
+export TRAFFIC_LIMIT
+export TRAFFIC_COUNT
 
 
