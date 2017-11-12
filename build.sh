@@ -4,7 +4,7 @@ rm temp*
 docker build -t shawnye90/shadowsocks:latest .
 docker save shawnye90/shadowsocks:latest -o temp.tar
 echo compressing files
-xz -z temp.tar -1
+xz -z temp.tar -0
 scp -P 61022 temp.tar.xz root@sg.shawnye.cn:~
 ssh -p 61022 root@sg.shawnye.cn "xz -d temp.tar.xz && docker load -i temp.tar && rm temp.tar"
 

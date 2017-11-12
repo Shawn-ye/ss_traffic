@@ -13,4 +13,5 @@ COPY eth_stat.sh /home/eth_stat.sh
 COPY start.sh /home/start.sh
 COPY eth_log.sh /home/eth_log.sh
 COPY reconfig.sh /home/reconfig.sh
+COPY time_check.sh /home/time_check.sh
 ENV TRAFFIC_COUNT 0
