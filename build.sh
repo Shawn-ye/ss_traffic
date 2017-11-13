@@ -1,8 +1,8 @@
 #!/bin/bash
 
 rm temp*
-docker build -t shawnye90/shadowsocks:beta .
-docker save shawnye90/shadowsocks:beta -o temp.tar
+docker build -t shawnye90/shadowsocks:v2beta .
+docker save shawnye90/shadowsocks:v2beta -o temp.tar
 echo compressing files
 xz -z temp.tar -0
 scp -P 61022 temp.tar.xz root@sg.shawnye.cn:~
