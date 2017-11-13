@@ -1,5 +1,5 @@
 #!/bin/bash
-server=45.76.189.252
+server=$1
 
 echo "Current server is $server"
 echo "Specify a port, 62xxx"
