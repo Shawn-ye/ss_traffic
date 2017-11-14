@@ -3,6 +3,7 @@
 for id in `docker ps -qa --filter=status=running`
 do
     PORT_CONFIG=`docker port $id | grep -e ":.*" -o`
+    containerip=`docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $id`
     TRAFFIC_LIMIT=`docker exec $id /bin/bash -c 'echo "\$TRAFFIC_LIMIT"'`
     start_time=`docker exec $id /bin/bash -c 'echo "\$TS"'`
     time_now=`date '+%s'`
@@ -28,7 +29,7 @@ do
     else
         traffic=`echo $TRAFFIC_COUNT bytes`
     fi
-    echo "PORT $PORT_CONFIG, CONTAINER ID : $id"
+    echo "PORT $PORT_CONFIG, CONTAINER ID : $id, IP : $containerip"
     echo "Traffic : $traffic / $TRAFFIC_LIMIT"
 
     if [[ $TRAFFIC_LIMIT != 0 ]]
