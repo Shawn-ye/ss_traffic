@@ -7,7 +7,7 @@ do
     TRAFFIC_LIMIT=`docker exec $id /bin/bash -c 'echo "\$TRAFFIC_LIMIT"'`
     if [[ $TRAFFIC_LIMIT =~ .*"not found"* ]]
     then
-        echo -e "PORT \033[0;31m$PORT_CONFIG\033[0m, CONTAINER ID : $id"
+        echo -e "PORT \033[0;34m$PORT_CONFIG\033[0m, CONTAINER ID : $id"
         echo "Container is NOT running."
         echo 
         continue;
@@ -36,7 +36,7 @@ do
     else
         traffic=`echo $TRAFFIC_COUNT bytes`
     fi
-    echo -e "PORT \033[0;31m$PORT_CONFIG\033[0m, CONTAINER ID : $id, IP : $containerip"
+    echo -e "PORT \033[0;34m$PORT_CONFIG\033[0m, CONTAINER ID : $id, IP : $containerip"
     echo "Traffic : $traffic / $TRAFFIC_LIMIT"
 
     cnt=0
@@ -44,7 +44,7 @@ do
     docker exec $id /bin/bash -c 'netstat -apn | grep -e "$containerip:8388"' | while read line
     do
         # echo $line
-        echo $line
+        # echo $line
         if [[ $line =~ .*"ESTABLISHED".* ]]
         then
             ((cnt=$cnt + 1))
@@ -52,7 +52,11 @@ do
         fi
     done
 
-    echo Active connections: `cat .tmp`
+    connection=`cat .tmp`
+    if [[ $connection != 0 ]]
+    then
+        echo -e "\033[1;32mActive : $connection\033[0m"
+    fi
 
     if [[ $TRAFFIC_LIMIT != 0 ]]
     then
