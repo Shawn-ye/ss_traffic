@@ -7,7 +7,7 @@ do
     TRAFFIC_LIMIT=`docker exec $id /bin/bash -c 'echo "\$TRAFFIC_LIMIT"'`
     if [[ $TRAFFIC_LIMIT =~ .*"not found"* ]]
     then
-        echo "PORT $PORT_CONFIG, CONTAINER ID : $id"
+        echo -e "PORT \033[0;31m$PORT_CONFIG\033[0m, CONTAINER ID : $id"
         echo "Container is NOT running."
         echo 
         continue;
@@ -36,7 +36,7 @@ do
     else
         traffic=`echo $TRAFFIC_COUNT bytes`
     fi
-    echo "PORT $PORT_CONFIG, CONTAINER ID : $id, IP : $containerip"
+    echo -e "PORT \033[0;31m$PORT_CONFIG\033[0m, CONTAINER ID : $id, IP : $containerip"
     echo "Traffic : $traffic / $TRAFFIC_LIMIT"
 
     if [[ $TRAFFIC_LIMIT != 0 ]]
