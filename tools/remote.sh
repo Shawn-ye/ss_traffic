@@ -4,6 +4,13 @@ for id in `docker ps -qa --filter=status=running`
 do
     PORT_CONFIG=`docker port $id | grep -e ":.*" -o`
     TRAFFIC_LIMIT=`docker exec $id /bin/bash -c 'echo "\$TRAFFIC_LIMIT"'`
+    if [[ $TRAFFIC_LIMIT =~ .*"not found"* ]]
+    then
+        echo "PORT $PORT_CONFIG, CONTAINER ID : $id"
+        echo "Container is NOT running."
+        echo 
+        continue;
+    fi
     start_time=`docker exec $id /bin/bash -c 'echo "\$TS"'`
     time_now=`date '+%s'`
     valid_period=`docker exec $id /bin/bash -c 'echo "\$VALID_PERIOD"'`
