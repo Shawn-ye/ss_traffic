@@ -39,6 +39,21 @@ do
     echo -e "PORT \033[0;31m$PORT_CONFIG\033[0m, CONTAINER ID : $id, IP : $containerip"
     echo "Traffic : $traffic / $TRAFFIC_LIMIT"
 
+    cnt=0
+    echo $cnt > .tmp
+    docker exec $id /bin/bash -c 'netstat -apn | grep -e "$containerip:8388"' | while read line
+    do
+        # echo $line
+        echo $line
+        if [[ $line =~ .*"ESTABLISHED".* ]]
+        then
+            ((cnt=$cnt + 1))
+            echo $cnt > .tmp    
+        fi
+    done
+
+    echo Active connections: `cat .tmp`
+
     if [[ $TRAFFIC_LIMIT != 0 ]]
     then
         #   Remaining time
