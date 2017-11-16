@@ -10,7 +10,7 @@ cmd="docker run -d --restart=always -v /root/ss_env:/home/env -e MODE=ssserver -
 
 containerId=`ssh -p 61022 root@$server $cmd`
 containerIp=`ssh -p 61022 root@$server "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $containerId"`
-rule="iptables -I DOCKER -p tcp --syn -d $containerIp --dport 8388 -m connlimit --connlimit-above 15 -j DROP && iptables -L"
+rule="iptables -I DOCKER -p tcp --syn -d $containerIp --dport 8388 -m connlimit --connlimit-above 15 --connlimit-mask 0 -j DROP && iptables -L"
 ssh -p 61022 root@$server $rule
 
 echo 
