@@ -1,0 +1,7 @@
+To deploy as a client:
+docker run -d --restart=always --name YOUR_SERVER -e SERVER=YOUR_SERVER -e PASSWORD=YOUR_PWD -e PORT=443 -p SOCKS_PORT:1234 docker.shawnye.cn:5000/ssbasic
+***PORT is default as 443 if left empty***
+
+To deploy as a server:
+docker run -d --restart=always -e MODE=1 -e PASSWORD=YOUR_PWD -p PUBLICPORT:8388 docker.shawnye.cn:5000/ssbasic
+
